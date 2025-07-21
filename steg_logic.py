@@ -9,16 +9,14 @@ def binary_to_text(binary):
     return ''.join(chr(int(char, 2)) for char in chars if int(char, 2) != 0)
 
 def hide_text(image_path, text, output_path):
-    img = Image.open(image_path)
-    img = img.convert("RGB")
+    img = Image.open(image_path).convert("RGB")
     pixels = np.array(img)
-
-    binary_text = text_to_binary(text) + '1111111111111110' 
+    binary_text = text_to_binary(text) + '1111111111111110'  
     idx = 0
 
     for i in range(pixels.shape[0]):
         for j in range(pixels.shape[1]):
-            for k in range(3):  # R, G, B
+            for k in range(3):
                 if idx < len(binary_text):
                     pixels[i, j, k] = (pixels[i, j, k] & 0xFE) | int(binary_text[idx])
                     idx += 1
@@ -27,11 +25,9 @@ def hide_text(image_path, text, output_path):
 
     new_img = Image.fromarray(pixels)
     new_img.save(output_path)
-    print(f"✅  Done: {output_path}")
 
 def extract_text(image_path):
-    img = Image.open(image_path)
-    img = img.convert("RGB")
+    img = Image.open(image_path).convert("RGB")
     pixels = np.array(img)
 
     binary_text = ""
@@ -42,8 +38,4 @@ def extract_text(image_path):
 
     end_marker = "1111111111111110"
     binary_text = binary_text[:binary_text.find(end_marker)]
-
     return binary_to_text(binary_text)
-
-hide_text("input.png", "I Love You", "output.png")
-print("📩 The Extraced text:", extract_text("output.png"))

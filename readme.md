@@ -1,71 +1,105 @@
+# Steganography Tool
 
-# Steganography ( مخفی‌سازی اطلاعات در تصاویر )
+‍‍‍
+**Author:** Setayesh SoheilNezhad
+**GitHub:** [sin-soheili](https://github.com/sin-soheili)
+**edX:**[S-soheili](https://profile.edx.org/u/S-soheili)
+**Location:** Gorgan, Golestan Province, Iran
+**date:** 2025-07-21
 
-این پروژه یک ابزار ساده است که متن‌ها را در تصاویر مخفی می‌کند و سپس از آن‌ها بازیابی می‌کند. این برنامه از **پایتون** و کتابخانه‌های `Pillow` (برای کار با تصاویر) و `numpy` (برای پردازش داده‌ها) استفاده می‌کند.
+---
 
-## ویژگی‌ها
+## Project Overview
 
-- مخفی‌سازی متن در تصاویر PNG
-- بازیابی متن مخفی‌شده از تصاویر
-- امکان اضافه کردن پایان‌نامه برای شناسایی انتهای متن مخفی‌شده
-- قابلیت استفاده در هر سیستم‌عاملی که از پایتون پشتیبانی می‌کند
+This project is a user-friendly graphical steganography tool built with Python, designed to hide secret text messages inside images, extract hidden messages from images, and convert various image formats to PNG. Steganography is a technique for embedding secret data within ordinary files—in this case, images—without noticeable changes to the image itself.
 
-## نحوه استفاده
+The tool uses a simple but effective method of hiding text by manipulating the least significant bits (LSB) of the pixels in an image. This ensures the hidden message is imperceptible to the naked eye, providing a basic but practical approach to secret communication.
 
-### پیش‌نیازها
+The project is implemented using Tkinter for the user interface, Pillow for image processing, and NumPy for efficient pixel manipulation. It’s modular, making it easy to understand, maintain, and extend.
 
-قبل از شروع به استفاده از این پروژه، باید کتابخانه‌های زیر را نصب کنید:
+---
 
-```bash
-pip install pillow numpy
-```
+## Features
 
-### مخفی کردن متن در تصویر
+* **Encode Text into Images:** Users can select any PNG image and embed their secret text into it. The text is converted into a binary sequence and hidden in the least significant bits of the image pixels.
+* **Decode Text from Images:** The tool can extract hidden messages from images encoded with this method, recovering the original text.
+* **Convert Images to PNG:** Users can convert images from formats like JPEG, BMP, WEBP, and others into PNG, which is necessary since the encoding and decoding require PNG images for lossless quality.
+* **User-Friendly GUI:** A clean, modern interface with three tabs — Encode, Decode, and Convert — each with intuitive controls.
+* **Custom Output Path Selection:** Users can choose where to save their output files, making the workflow flexible and convenient.
 
-برای مخفی کردن یک متن در تصویر، کافی است دستور زیر را اجرا کنید:
+---
 
-```python
-from steganography import hide_text
+## Project Structure
 
-hide_text("input.png", "این یک پیام مخفی است!", "output.png")
-```
+* **`main.py`**
+  The main entry point of the application. It initializes the GUI and coordinates between the different modules.
 
-در اینجا:
-- `"input.png"` نام تصویر ورودی است.
-- `"این یک پیام مخفی است!"` متنی است که می‌خواهید مخفی کنید.
-- `"output.png"` تصویری است که متن مخفی‌شده در آن ذخیره می‌شود.
+* **`steg_logic.py`**
+  Contains the core steganography logic: functions for converting text to binary, hiding text in images, extracting text, and handling binary conversions.
 
-### بازیابی متن از تصویر
+* **`gui/encode_tab.py`**
+  Implements the Encode tab UI and handles user inputs for hiding text into images.
 
-برای بازیابی متن مخفی‌شده از تصویر، از دستور زیر استفاده کنید:
+* **`gui/decode_tab.py`**
+  Implements the Decode tab UI and handles user inputs for extracting text from images.
 
-```python
-from steganography import extract_text
+* **`gui/convert_tab.py`**
+  Implements the Convert tab UI for image format conversion to PNG.
 
-message = extract_text("output.png")
-print("متن بازیابی شده:", message)
-```
+* **`gui/__init__.py`**
+  Makes the `gui` directory a package.
 
-در اینجا:
-- `"output.png"` همان تصویری است که متن در آن مخفی شده است.
+---
 
-### نحوه ساخت و اجرا
+## Design Rationale
 
-1. ابتدا تصویر ورودی (`input.png`) را آماده کنید.
-2. کد بالا را برای مخفی‌سازی متن اجرا کنید.
-3. برای بازیابی متن، کد `extract_text` را اجرا کنید.
+The application emphasizes clarity and modularity:
 
-## نکات امنیتی
+* **Modularity:** Each tab and core functionality is separated into different files to keep code organized and maintainable.
+* **User Experience:** Tkinter’s notebook widget is used for easy navigation between encode, decode, and convert functions.
+* **File Handling:** To avoid file overwrite and confusion, users select both input and output paths.
+* **Simplicity:** The LSB steganography method is simple to understand yet effective for learning purposes.
+* **Extensibility:** The project can be extended to support other file types, encryption, or more advanced steganography algorithms.
 
-این پروژه به‌طور ساده و برای مقاصد آموزشی طراحی شده است. به هیچ‌وجه از این تکنیک‌ها برای اهداف مخرب استفاده نکنید. استفاده از این پروژه در موارد غیرقانونی یا غیر اخلاقی می‌تواند تبعات قانونی به‌دنبال داشته باشد.
+---
 
-## الهام‌بخش
+## How to Run
 
-این پروژه از تکنیک‌های اولیه استگانورافی (Steganography) استفاده می‌کند که به‌طور سنتی برای پنهان کردن پیام‌ها در رسانه‌ها (مانند تصاویر) طراحی شده‌اند.
+1. Make sure Python 3.x is installed.
+2. Install dependencies:
 
-## ارتباط با ما
+   ```bash
+   pip install pillow numpy
+   ```
+3. Run the application:
 
-اگر سوالی دارید یا مشکلاتی در استفاده از این پروژه داشتید، می‌توانید به این پروژه بپردازید یا آن را بهبود ببخشید و درخواست‌هایتان را ارسال کنید.
+   ```bash
+   python main.py
+   ```
+4. Use the GUI to select images and either hide text, extract text, or convert images.
 
-- [گزارش مشکل یا ایجاد Issue](https://github.com/sin-soheili/Steganography/issues)
-- [پروژه‌ها و ایده‌ها](https://github.com/sin-soheili)
+---
+
+## Video Tutorial
+
+I have created a step-by-step video tutorial explaining the project setup, how to use the tool, and the underlying code logic. You can watch it here:
+
+**[YouTube Video](https://youtu.be/wvBCzq1HGRc?si=39YOKYijhW5MGdhW)**
+
+
+---
+
+## Screen Shots
+
+### Encode
+![Encode](screenshots/encode.png)
+
+### Decode
+![Decode](screenshots/decode.png)
+
+### Convert
+![Convert](screenshots/convert.png)
+
+### Example Output
+![Example](screenshots/example.png)
+
