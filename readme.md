@@ -38,13 +38,13 @@ The modular design separates the GUI code from the core steganography logic, mak
 
    ```bash
    pip install pillow numpy
-````
-
+   ```
 3. Run the application by executing:
 
    ```bash
    python main.py
    ```
+ 
 4. Use the GUI to select your input images, encode or decode messages, or convert image formats.
 
 ---
